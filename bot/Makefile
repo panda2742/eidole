@@ -23,21 +23,19 @@ override	CTN_NAME	:=	$(IMG_NAME)-container
 TSC		:=	tsc
 
 .PHONY:	all
-all:	$(ENTRYPOINT)
-	@$(MAKE) stop
+all: 	stop $(ENTRYPOINT)
 	$(D_BUILD) . -t $(IMG_NAME) -f envs/$(ENVIRONMENT)/Dockerfile
 	$(D_RUN) -d --name $(CTN_NAME) --rm -it $(IMG_NAME)
 
-.PHONY:	local
-local:	$(ENTRYPOINT)
+.PHONY: install
+install:
 	pnpm install
 	pnpm prune
+
+.PHONY:	local
+local:	install $(ENTRYPOINT)
 	$(CP) ./envs/$(ENVIRONMENT)/.env ./envs/.env
 	$(NODE) ./.dist/main.js
-
-.PHONY:	stop
-stop:
-	$(D_CTN) stop $(CTN_NAME) || echo 0
 
 $(DIST_FOLDER)/main.js:	$(SRC_FOLDER)main.ts
 	$(TSC)

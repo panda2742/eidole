@@ -1,0 +1,6 @@
+services:
+  bot-dev:
+    container_name: bot-dev-container
+    build:
+      context: bot
+      dockerfile: envs/dev/Dockerfile

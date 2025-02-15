@@ -3,12 +3,15 @@
 # Eidole
 
 Eidole is a Discord service including a bot and a webapp. Everything works fine
-locally and by using Docker (composition or not).
+locally and by using Docker compose.
 
-How to start a standalone service? Just `cd`into the directory and enter `make`.
-Example: 
+Launch the projet:
 ```bash
-cd bot ; make ENVIRONMENT=<dev>
+make
+```
+Stop the project and remove Docker content:
+```bash
+make stop
 ```
 
 # The Discord bot
