@@ -17,3 +17,7 @@ make stop
 # The Discord bot
 
 Technology: TypeScript (NodeJS) with Discord.js
+To launch only the Discord bot, you can do:
+```bash
+cd bot ; make
+```

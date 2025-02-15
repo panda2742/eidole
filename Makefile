@@ -21,3 +21,11 @@ stop:
 	$(D_CTN) stop $(CTN_NAME) || echo 0
 	$(D_CTN) rm $(CTN_NAME) || echo 0
 	$(D_IMG) rm $(IMG_NAME) || echo 0
+
+.PHONY: clean
+clean:
+	$(MAKE) -C bot clean
+
+.PHONY: purge
+purge: clean
+	$(MAKE) -C bot purge

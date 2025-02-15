@@ -24,8 +24,14 @@ TSC		:=	tsc
 
 .PHONY:	all
 all: 	stop $(ENTRYPOINT)
-	$(D_BUILD) . -t $(IMG_NAME) -f envs/$(ENVIRONMENT)/Dockerfile
-	$(D_RUN) -d --name $(CTN_NAME) --rm -it $(IMG_NAME)
+	$(D_BUILD) . -t eidole-$(IMG_NAME) -f envs/$(ENVIRONMENT)/Dockerfile
+	$(D_RUN) -d --name eidole-$(CTN_NAME) --rm -it eidole-$(IMG_NAME)
+
+.PHONY: stop
+stop:
+	$(D_CTN) stop eidole-$(CTN_NAME) || echo 0
+	$(D_CTN) rm eidole-$(CTN_NAME) || echo 0
+	$(D_IMG) rm eidole-$(IMG_NAME) || echo 0
 
 .PHONY: install
 install:
