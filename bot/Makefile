@@ -10,6 +10,9 @@ override	ENTRYPOINT	:=	$(DIST_FOLDER)/main.js
 override	TSC			:=	tsc
 override	CP			:=	cp
 override	NODE		:=	node
+override	RM			:=	rm
+override	RM_PARAMS	:=	-r
+
 override	D_BUILD		:=	docker build
 override	D_RUN		:=	docker run
 override	D_CTN		:=	docker container
@@ -27,6 +30,8 @@ all:	$(ENTRYPOINT)
 
 .PHONY:	local
 local:	$(ENTRYPOINT)
+	pnpm install
+	pnpm prune
 	$(CP) ./envs/$(ENVIRONMENT)/.env ./envs/.env
 	$(NODE) ./.dist/main.js
 
@@ -36,3 +41,13 @@ stop:
 
 $(DIST_FOLDER)/main.js:	$(SRC_FOLDER)main.ts
 	$(TSC)
+
+.PHONY: clean
+clean:
+	$(RM) $(RM_PARAMS) ./.dist || echo ""
+	$(RM) $(RM_PARAMS) envs/.env || echo ""
+
+.PHONY: purge
+purge: clean
+	$(RM) $(RM_PARAMS) node_modules || echo ""
+	$(RM) $(RM_PARAMS) pnpm-lock.yaml || echo ""
